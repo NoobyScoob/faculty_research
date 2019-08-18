@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class HttpService {
-  static const url = "http://0edeb709.ngrok.io";
+  static const url = "https://faculty-research-server.herokuapp.com";
 
   Future<bool> postWorkshopForm(Map<String, dynamic> formData, String filePath) async {
     var uri = Uri.parse(url + "/workshop");
