@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.all(8),
             margin: EdgeInsets.only(bottom: 20),
             decoration: BoxDecoration(
-              boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 5.0)],
+              boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 15.0)],
               color: Colors.black,
               borderRadius: BorderRadius.circular(4.0),
             ),

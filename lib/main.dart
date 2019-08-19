@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       routes: {
         '/': (context) => HomePage(),
-        '/adminLogin': (context) => AdminLoginPage(title: 'Admin Page',),
-        '/adminHome': (context) => AdminHome(),
+        '/adminLogin': (context) => AdminLoginPage(title: 'Admin Page'),
+        '/adminHome': (context) => AdminHome(title: 'Admin Home'),
         '/researchRegistration': (context) => WorkshopRegistrationPage(title: 'Workshop Registration'),
         '/journalRegistration' : (context) => JournalRegistrationPage(title: 'Journal Registration'),
         '/conferenceRegistration': (context) => ConferenceRegistrationPage(title: 'Conference Registration'),

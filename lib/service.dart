@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class HttpService {
@@ -12,10 +13,26 @@ class HttpService {
     request.files.add(await http.MultipartFile.fromPath('file', filePath));
     var response = await request.send();
     print(response.statusCode);
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return response.statusCode == 200;
+  }
+
+  Future<bool> postConferenceForm(Map<String, dynamic> formData) async {
+    var uri = Uri.parse(url + "/conference");
+    var jsonFormData = jsonEncode(formData);
+    var response = await http.post(uri, headers: {
+      "Content-Type": "application/json"
+    }, body: jsonFormData);
+    print(response.statusCode);
+    return response.statusCode == 200;
+  }
+
+  Future<bool> postJournalForm(Map<String, dynamic> formData) async {
+    var uri = Uri.parse(url + "/journal");
+    var jsonFormData = jsonEncode(formData);
+    var response = await http.post(uri, headers: {
+      "Content-Type": "application/json"
+    }, body: jsonFormData);
+    print(response.statusCode);
+    return response.statusCode == 200;
   }
 }

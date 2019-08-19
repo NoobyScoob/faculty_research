@@ -91,7 +91,7 @@ class _AdminLoginPageState extends State<AdminLoginPage> {
                 height: 20,
               ),
               PrimaryActionButton(
-                onPressed: () {
+                onPressed: _isLoading ? () {} : () {
                   if(_formKey.currentState.validate()) {
                     setState(() {
                       _isLoading = true;

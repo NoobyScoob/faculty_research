@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:faculty_research/widgets/primaryActionButton.dart';
+import 'package:faculty_research/service.dart';
 
 class ConferenceRegistrationPage extends StatefulWidget {
   ConferenceRegistrationPage({Key key, this.title}) : super(key: key);
@@ -20,7 +21,7 @@ class _ConferenceRegistrationPageState extends State<ConferenceRegistrationPage>
   String userId;
   String title;
   String venue;
-  String issue;
+  String index;
   String date;
 
   bool _isLoading = false;
@@ -65,6 +66,7 @@ class _ConferenceRegistrationPageState extends State<ConferenceRegistrationPage>
             ),
             // User ID
             TextFormField(
+              keyboardType: TextInputType.number,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -123,21 +125,21 @@ class _ConferenceRegistrationPageState extends State<ConferenceRegistrationPage>
             SizedBox(
               height: 10,
             ),
-            // issue
+            // index
             TextFormField(
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
                 }
                 setState(() {
-                  issue = value;
+                  index = value;
                 });
                 return null;
               },
               decoration: InputDecoration(
                 alignLabelWithHint: true,
                 border: OutlineInputBorder(),
-                hintText: "Issue",
+                hintText: "Index",
               ),
             ),
             SizedBox(
@@ -145,6 +147,7 @@ class _ConferenceRegistrationPageState extends State<ConferenceRegistrationPage>
             ),
             // date
             TextFormField(
+              keyboardType: TextInputType.datetime,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -157,19 +160,41 @@ class _ConferenceRegistrationPageState extends State<ConferenceRegistrationPage>
               decoration: InputDecoration(
                 alignLabelWithHint: true,
                 border: OutlineInputBorder(),
-                hintText: "Date : Format dd-mm-yyyy",
+                hintText: "Date : dd/mm/yyyy",
               ),
             ),
             SizedBox(
               height: 10,
             ),
             PrimaryActionButton(
-              onPressed: () {
+              onPressed: _isLoading ? () {} : () {
                 if(_formKey.currentState.validate()) {
                   setState(() {
                     _isLoading = true;
                   });
-                  print(username);
+                  Map<String, dynamic> formData = {
+                    "userName": username,
+                    "userId": userId,
+                    "indexed": index,
+                    "venue": venue,
+                    "date": date,
+                    "title": title,
+                  };
+                  HttpService().postConferenceForm(formData).then((ok) {
+                    print(ok);
+                    if(ok) {
+                      Navigator.pushNamed(context, '/success');
+                    } else {
+                      setState(() {
+                        _isLoading = false;
+                      });
+                      _scaffoldKey.currentState.showSnackBar(
+                        SnackBar(
+                          content: Text('Network error, please try again later'),
+                        )
+                      );
+                    }
+                  });
                 }
               },
               child: _isLoading ? CircularProgressIndicator(backgroundColor: Colors.white,) : Text('Submit Form'),

@@ -130,6 +130,7 @@ class _WorkshopRegistrationPageState extends State<WorkshopRegistrationPage> {
             ),
             // Date
             TextFormField(
+              keyboardType: TextInputType.datetime,
               validator: (value) {
                 if (value.isEmpty) {
                   return 'Please enter some text';
@@ -190,7 +191,7 @@ class _WorkshopRegistrationPageState extends State<WorkshopRegistrationPage> {
               height: 10,
             ),
             PrimaryActionButton(
-              onPressed: () {
+              onPressed: _isLoading ? () {} : () {
                 if(_formKey.currentState.validate()) {
                   setState(() {
                     _isLoading = true;
